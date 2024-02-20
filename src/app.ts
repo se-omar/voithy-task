@@ -3,6 +3,8 @@ import helmet from 'helmet'
 import compression from 'compression'
 import cors from 'cors'
 import router from './router'
+import path from 'path'
+
 const app = express()
 const port = 3000
 
@@ -22,10 +24,16 @@ app.use(compression())
 app.use(cors())
 app.options('*', cors())
 
+app.use(express.static(path.join(__dirname, 'public')))
+
 app.use(router)
 
 app.get('/test', (req, res) => {
   res.send('Healthy Instance')
+})
+
+app.get('/addPatient', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'addPatient.html'))
 })
 
 app.listen(port, () => {

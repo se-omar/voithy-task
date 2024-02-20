@@ -22,6 +22,7 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/strict-boolean-expressions': 'warn',
-    '@typescript-eslint/explicit-function-return-type': 0
+    '@typescript-eslint/explicit-function-return-type': 0,
+	'@typescript-eslint/no-misused-promises': 0
   }
 }

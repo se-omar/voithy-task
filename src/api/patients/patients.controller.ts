@@ -6,7 +6,7 @@ import {
 } from '@ahryman40k/ts-fhir-types/lib/R4'
 import { either as E } from 'fp-ts'
 import { jsonRes } from '../../utils/JsonRes'
-import { Patient } from '../../db/database'
+import { Patient } from '../../config/database'
 
 interface reqPatient {
   givenName: string
@@ -46,7 +46,6 @@ const mapPatientData = (data: reqPatient) => {
 export const createPatient = async (req: Request, res: Response) => {
   const patient = mapPatientData(req.body as reqPatient)
   const result = RTTI_Patient.decode(patient)
-
   try {
     if (E.isRight(result)) {
       const patientModel = new Patient(patient)

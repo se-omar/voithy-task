@@ -20,6 +20,11 @@ app.use(express.urlencoded({ extended: true }))
 // Set gzip compression
 app.use(compression())
 
+// auditing/logging middleware here
+//
+//
+// implement authorization
+
 // Enable cors
 app.use(cors())
 app.options('*', cors())

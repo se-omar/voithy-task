@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import userRoutes from './api/users/users.routes'
+import patientRoutes from './api/patients/patients.routes'
 
 const router = Router()
-router.use('/users', userRoutes)
+router.use('/patients', patientRoutes)
 
 export default router

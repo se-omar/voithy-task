@@ -1,0 +1,266 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Responsive Login and Signup Form</title>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="css/style.css" />
+
+	<!-- Boxicons CSS -->
+	<link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+</head>
+
+<style>
+	/* Google Fonts - Poppins */
+	@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		font-family: "Poppins", sans-serif;
+	}
+
+	.container {
+		height: 100vh;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: #4070f4;
+		column-gap: 30px;
+	}
+
+	.form {
+		position: absolute;
+		max-width: 430px;
+		width: 100%;
+		padding: 30px;
+		border-radius: 6px;
+		background: #fff;
+	}
+
+	header {
+		font-size: 28px;
+		font-weight: 600;
+		color: #232836;
+		text-align: center;
+	}
+
+	form {
+		margin-top: 30px;
+	}
+
+	.form .field {
+		position: relative;
+		height: 50px;
+		width: 100%;
+		margin-top: 20px;
+		border-radius: 6px;
+	}
+
+	.field input,
+	.field button {
+		height: 100%;
+		width: 100%;
+		border: none;
+		font-size: 16px;
+		font-weight: 400;
+		border-radius: 6px;
+	}
+
+	.field input {
+		outline: none;
+		padding: 0 15px;
+		border: 1px solid#CACACA;
+	}
+
+	.field input:focus {
+		border-bottom-width: 2px;
+	}
+
+	.eye-icon {
+		position: absolute;
+		top: 50%;
+		right: 10px;
+		transform: translateY(-50%);
+		font-size: 18px;
+		color: #8b8b8b;
+		cursor: pointer;
+		padding: 5px;
+	}
+
+	.field button {
+		color: #fff;
+		background-color: #0171d3;
+		transition: all 0.3s ease;
+		cursor: pointer;
+	}
+
+	.field button:hover {
+		background-color: #016dcb;
+	}
+
+	.form-link {
+		text-align: center;
+		margin-top: 10px;
+	}
+
+	.form-link span,
+	.form-link a {
+		font-size: 14px;
+		font-weight: 400;
+		color: #232836;
+	}
+
+	.form a {
+		color: #0171d3;
+		text-decoration: none;
+	}
+
+	.form-content a:hover {
+		text-decoration: underline;
+	}
+
+	.line {
+		position: relative;
+		height: 1px;
+		width: 100%;
+		margin: 36px 0;
+		background-color: #d4d4d4;
+	}
+
+	.line::before {
+		content: "Or";
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: #fff;
+		color: #8b8b8b;
+		padding: 0 15px;
+	}
+
+	.media-options a {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.checkbox-group {
+		display: flex;
+		justify-content: start;
+		/* margin-bottom: 20px; */
+	}
+
+	.checkbox-group label {
+		margin-top: 20px;
+		margin-right: 20px;
+		display: flex;
+		align-items: center;
+	}
+
+	.field select {
+		height: 50px;
+		width: 100%;
+		border: 1px solid #cacaca;
+		border-radius: 6px;
+		padding: 0 15px;
+		font-size: 16px;
+		font-weight: 100;
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		background: url("arrow-down-icon.png") no-repeat right 15px center;
+		background-size: 12px;
+		cursor: pointer;
+	}
+
+	.field select:focus {
+		border-color: #0171d3;
+		outline: none;
+	}
+
+	.field select:-moz-focusring {
+		color: transparent;
+		text-shadow: 0 0 0 #000;
+	}
+
+	.field select::-ms-expand {
+		display: none;
+	}
+
+	@media screen and (max-width: 400px) {
+		.form {
+			padding: 20px 10px;
+		}
+	}
+</style>
+
+<body>
+	<section class="container forms">
+		<div class="form signup">
+			<div class="form-content">
+				<header>Register new Patient</header>
+				<form id="form">
+					<div class="field input-field">
+						<input type="text" placeholder="Given Name" name="givenName" class="input" required />
+					</div>
+
+					<div class="field input-field">
+						<input type="texte" placeholder="Family Name" name="familyName" class="input" required />
+					</div>
+
+					<div class="field input-field">
+						<input type="text" placeholder="Address" name="address" class="input" required/>
+					</div>
+
+					<div class="field input-field">
+						<input type="text" placeholder="City" name="city" class="input" required/>
+					</div>
+
+					<div class="field input-field">
+						<input type="text" placeholder="Country" name="country" class="input" required/>
+					</div>
+
+					<div class="field input-field">
+						<input type="number" placeholder="Mobile Number" name="mobileNumber" class="input" required/>
+					</div>
+
+					<div class="field input-field">
+						<select placeholder="Gender" name="gender" required>
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+							<option value="other">Other</option>
+							<option value="unknown">Unknown</option>
+						</select>
+					</div>
+
+					<div class="checkbox-group">
+						<label for="active">
+							<input type="checkbox" name="active" />
+							<span style="margin-left: 5px">Active</span>
+						</label>
+
+						<label for="deceased">
+							<input type="checkbox" name="deceased" />
+							<span style="margin-left: 5px">Deceased</span>
+						</label>
+					</div>
+
+					<div class="field button-field">
+						<button type="submit">Create Patient</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>
+
+<script src="js/addPatient.js"></script>

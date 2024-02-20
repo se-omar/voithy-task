@@ -38,7 +38,15 @@ app.get('/test', (req, res) => {
 })
 
 app.get('/addPatient', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'addPatient.html'))
+  res.sendFile(path.join(__dirname, 'public', 'pages/addPatient.html'))
+})
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'pages/login.html'))
+})
+
+app.get('/signup', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'pages/signup.html'))
 })
 
 app.listen(port, () => {

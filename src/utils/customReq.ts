@@ -1,4 +1,5 @@
 import { type Request } from 'express'
-export interface CustomReq extends Request {
+export interface CustomReq<T> extends Request {
+  body: T
   user?: any
 }

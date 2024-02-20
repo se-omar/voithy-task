@@ -5,7 +5,7 @@ import { type CustomReq } from '../utils/customReq'
 import { jsonRes } from '../utils/JsonRes'
 
 export const authenticateToken = (
-  req: CustomReq,
+  req: CustomReq<any>,
   res: Response,
   next: NextFunction
 ) => {

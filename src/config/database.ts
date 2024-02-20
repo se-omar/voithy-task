@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 import 'dotenv/config'
 import { type IPatient } from '@ahryman40k/ts-fhir-types/lib/R4'
-// import { type IPatient } from '@ahryman40k/ts-fhir-types/lib/R4'
+import { type IUser } from '../api/users/users.models'
 
 const url = process.env.MONGO_DB ?? ''
 mongoose
@@ -34,5 +34,12 @@ const patientSchema = new Schema<IPatient>(
   { strict: true, typeKey: '$type' }
 )
 
+const userSchema = new Schema<IUser>({
+  name: String,
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true }
+})
+
 export const Patient = mongoose.model('Patient', patientSchema)
+export const User = mongoose.model('User', userSchema)
 export default mongoose

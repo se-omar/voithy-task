@@ -16,29 +16,23 @@ mongoose
 const patientSchema = new Schema<IPatient>(
   {
     active: Boolean,
-    name: [{ given: [String], family: String, use: String }],
-    gender: String,
-    telecom: [{ system: String, value: String, use: String }],
-    birthDate: String,
-    deceasedBoolean: Boolean,
     address: [
       {
         use: String,
         type: String,
         text: String,
         city: String,
-        Country: String
+        country: String
       }
-    ]
+    ],
+    name: [{ given: [String], family: String, use: String }],
+    gender: String,
+    telecom: [{ system: String, value: String, use: String }],
+    birthDate: String,
+    deceasedBoolean: Boolean
   },
-  { strict: true }
+  { strict: true, typeKey: '$type' }
 )
+
 export const Patient = mongoose.model('Patient', patientSchema)
-
 export default mongoose
-
-// Schema File
-
-// const patientModel = new mongoose.Schema<IPatient>()
-//
-// module.exports = mongoose.model('patient', patientModel)

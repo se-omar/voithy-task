@@ -6,6 +6,7 @@ import router from './router'
 import path from 'path'
 import swaggerUi from 'swagger-ui-express'
 import swaggerOutput from './swagger_output.json'
+import { auditMiddleware } from './config/audit'
 const app = express()
 const port = 3000
 
@@ -29,6 +30,8 @@ app.use(compression())
 // Enable cors
 app.use(cors())
 app.options('*', cors())
+
+app.use(auditMiddleware)
 
 app.use(express.static(path.join(__dirname, 'public')))
 

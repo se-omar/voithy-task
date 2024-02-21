@@ -40,6 +40,16 @@ const userSchema = new Schema<IUser>({
   password: { type: String, required: true }
 })
 
+const auditSchema = new Schema({
+  userId: String,
+  occuredAt: Date,
+  httpMethod: String,
+  resourceUrl: String,
+  ipAddress: String,
+  userAgent: String
+})
+
 export const Patient = mongoose.model('Patient', patientSchema)
 export const User = mongoose.model('User', userSchema)
+export const Audit = mongoose.model('Audit', auditSchema)
 export default mongoose

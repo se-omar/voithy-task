@@ -18,13 +18,17 @@ function addPatient () {
       body: json
     })
 
-    if (response.status === 201) {
+    const data = await response.json()
+    if (response.status === 200) {
       alert('Patient created successfully')
+      window.location.href = `http://localhost:3000/patient/${data.data._id}`
       return
     }
 
-    const data = await response.json()
     alert(data.message)
+    if (response.status === 403) {
+      window.location.href = 'http://localhost:3000/login'
+    }
   })
 }
 

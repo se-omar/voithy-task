@@ -49,6 +49,11 @@ app.get('/signup', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'pages/signup.html'))
 })
 
+app.get('/patient/:id', (req, res) => {
+  req.url = req.params.id
+  res.sendFile(path.join(__dirname, 'public', 'pages/patient.html'))
+})
+
 app.listen(port, () => {
   console.log(`Express is listening at http://localhost:${port}`)
 })

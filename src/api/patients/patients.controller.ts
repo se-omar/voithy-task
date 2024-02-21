@@ -62,3 +62,18 @@ export const createPatient = async (req: Request, res: Response) => {
     res.status(500).send(jsonRes({}, 'Error while adding patient'))
   }
 }
+
+export const getPatientById = async (req: Request, res: Response) => {
+  const { id } = req.params
+	console.log("id: ", id);
+	
+  if (!id) {
+    return res.status(400).send(jsonRes({}, 'Invalid ID'))
+  }
+  const patient = await Patient.findById(id)
+  if (!patient) {
+    return res.status(404).send(jsonRes({}, 'Patient not found'))
+  }
+
+  return res.status(200).send(jsonRes(patient, 'patient found!'))
+}

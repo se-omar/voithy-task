@@ -25,6 +25,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 0,
 	'@typescript-eslint/no-misused-promises': 0,
 	'@typescript-eslint/strict-boolean-expressions': 0,
-	'@typescript-eslint/no-unsafe-argument': 0
+	'@typescript-eslint/no-unsafe-argument': 0,
+	'@typescript-eslint/no-floating-promises': 0
   }
 }

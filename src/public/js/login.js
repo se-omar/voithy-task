@@ -16,3 +16,30 @@ pwShowHide.forEach((eyeIcon) => {
     })
   })
 })
+
+function login () {
+  const form = document.forms.login
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault()
+    const fd = new FormData(form)
+    const obj = {}
+    fd.forEach((value, key) => (obj[key] = value))
+    const json = JSON.stringify(obj)
+    const response = await fetch('http://localhost:3000/api/User/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: json
+    })
+
+    if (response.status === 200) {
+      alert('Successful login')
+      window.location.href = 'http://localhost:3000/addPatient'
+      return
+    }
+
+    const data = await response.json()
+    alert(data.message)
+  })
+}
+
+login()

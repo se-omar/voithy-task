@@ -12,4 +12,4 @@ const getPatientById = async (id: string) => {
   return patient
 }
 
-export const dal = { createPatient, getPatientById }
+export const patientDal = { createPatient, getPatientById }

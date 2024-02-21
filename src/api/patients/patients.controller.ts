@@ -12,7 +12,7 @@ import { either as E } from 'fp-ts'
 import { jsonRes } from '../../utils/JsonRes'
 import { type CustomReq } from '../../utils/customReq'
 import { type ReqPatient } from './patients.models'
-import { dal } from './patients.dal'
+import { patientDal } from './patients.dal'
 
 const mapPatientData = (data: ReqPatient) => {
   const patient: IPatient = {
@@ -56,7 +56,7 @@ export const createPatient = async (
   const result = RTTI_Patient.decode(patient)
   try {
     if (E.isRight(result)) {
-      const patientModel = await dal.createPatient(patient)
+      const patientModel = await patientDal.createPatient(patient)
       res
         .status(200)
         .send(jsonRes(patientModel, 'Patient created successfully'))
@@ -76,7 +76,7 @@ export const getPatientById = async (req: Request, res: Response) => {
   if (!id) {
     return res.status(400).send(jsonRes({}, 'Invalid ID'))
   }
-  const patient = await dal.getPatientById(id)
+  const patient = await patientDal.getPatientById(id)
   if (!patient) {
     return res.status(404).send(jsonRes({}, 'Patient not found'))
   }

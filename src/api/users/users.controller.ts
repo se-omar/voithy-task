@@ -1,10 +1,10 @@
 import { type Request, type Response } from 'express'
 import jwt from 'jsonwebtoken'
-import { User } from '../../config/database'
 import { type IUser } from './users.models'
 import { jsonRes } from '../../utils/JsonRes'
 import bcrypt from 'bcrypt'
 import { type CustomReq } from '../../utils/customReq'
+import { userDal } from './users.dal'
 
 export const login = async (req: Request, res: Response) => {
   const email = req.body.email as string
@@ -15,7 +15,7 @@ export const login = async (req: Request, res: Response) => {
       return res.status(400).send(jsonRes({}, 'Invalid username or password'))
     }
 
-    const dbUser = await User.findOne({ email })
+    const dbUser = await userDal.findUser({ email })
     if (!dbUser) {
       return res.status(404).send(jsonRes({}, 'User not found'))
     }
@@ -44,18 +44,13 @@ export const signup = async (req: CustomReq<IUser>, res: Response) => {
       return res.status(409).send(jsonRes({}, 'Invalid email or password'))
     }
 
-    const dbUser = await User.findOne({ email: user.email })
+    const dbUser = await userDal.findUser({ email: user.email })
     if (dbUser !== null) {
       return res.status(409).send(jsonRes({}, 'User already exists'))
     }
 
     const hashedPassword = await bcrypt.hash(user.password, 10)
-    const newUser = new User({
-      email: user.email,
-      name: user.name,
-      password: hashedPassword
-    })
-    await newUser.save()
+    const newUser = await userDal.saveUser(user, hashedPassword)
     return res.status(201).send(jsonRes(newUser, 'User created successfully'))
   } catch (err) {
     console.log(err)

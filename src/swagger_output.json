@@ -24,10 +24,10 @@
     },
     "/api/User/login": {
       "post": {
-        "description": "",
+        "description": "logs existing users",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "login success with access token returned"
           },
           "400": {
             "description": "Invalid email/password"

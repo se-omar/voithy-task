@@ -41,13 +41,13 @@ export const login = async (req: Request, res: Response) => {
 export const signup = async (req: CustomReq<IUser>, res: Response) => {
   try {
     const user = req.body
-    const dbUser = await User.findOne({ email: user.email })
-    if (dbUser !== null) {
+    if (!user.password) {
       return res.status(409).send(jsonRes({}, 'Invalid email or password'))
     }
 
-    if (!user.password) {
-      return res.status(409).send(jsonRes({}, 'Invalid email or password'))
+    const dbUser = await User.findOne({ email: user.email })
+    if (dbUser !== null) {
+      return res.status(409).send(jsonRes({}, 'User already exists'))
     }
 
     const hashedPassword = await bcrypt.hash(user.password, 10)

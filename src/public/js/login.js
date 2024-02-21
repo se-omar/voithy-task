@@ -31,13 +31,14 @@ function login () {
       body: json
     })
 
+    const { data } = await response.json()
     if (response.status === 200) {
+      localStorage.setItem('accessToken', data.accessToken)
       alert('Successful login')
       window.location.href = 'http://localhost:3000/addPatient'
       return
     }
 
-    const data = await response.json()
     alert(data.message)
   })
 }

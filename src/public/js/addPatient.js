@@ -8,11 +8,13 @@ function addPatient () {
     obj.active = obj.active === 'on'
     obj.deceased = obj.deceased === 'on'
     const json = JSON.stringify(obj)
-    console.log(json)
     const token = localStorage.getItem('accessToken')
     const response = await fetch('http://localhost:3000/api/Patient', {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
       body: json
     })
 

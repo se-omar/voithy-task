@@ -9,7 +9,6 @@ import { type CustomReq } from '../../utils/customReq'
 export const login = async (req: Request, res: Response) => {
   const email = req.body.email as string
   const password = req.body.password as string
-  console.log(req.body)
 
   try {
     if (!email || !password) {

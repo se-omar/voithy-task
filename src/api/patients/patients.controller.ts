@@ -2,35 +2,37 @@ import { type Request, type Response } from 'express'
 import {
   AddressTypeKind,
   AddressUseKind,
-  RTTI_Patient
+  type IPatient,
+  RTTI_Patient,
+  HumanNameUseKind,
+  ContactPointUseKind,
+  ContactPointSystemKind
 } from '@ahryman40k/ts-fhir-types/lib/R4'
 import { either as E } from 'fp-ts'
 import { jsonRes } from '../../utils/JsonRes'
-import { Patient } from '../../config/database'
 import { type CustomReq } from '../../utils/customReq'
+import { type ReqPatient } from './patients.models'
+import { dal } from './patients.dal'
 
-interface reqPatient {
-  givenName: string
-  familyName: string
-  birthDate: Date
-  mobileNumber: string
-  address: string
-  city: string
-  country: string
-  deceased: boolean
-  active: boolean
-  gender: 'male' | 'female' | 'other' | 'unknown'
-}
-
-const mapPatientData = (data: reqPatient) => {
-  return {
+const mapPatientData = (data: ReqPatient) => {
+  const patient: IPatient = {
     resourceType: 'Patient',
     deceasedBoolean: data.deceased,
     active: data.active,
     name: [
-      { given: [data.givenName], family: data.familyName, use: 'official' }
+      {
+        given: [data.givenName],
+        family: data.familyName,
+        use: HumanNameUseKind._official
+      }
     ],
-    telecom: [{ value: data.mobileNumber, use: 'mobile', system: 'phone' }],
+    telecom: [
+      {
+        value: data.mobileNumber,
+        use: ContactPointUseKind._mobile,
+        system: ContactPointSystemKind._phone
+      }
+    ],
     address: [
       {
         city: data.city,
@@ -42,10 +44,11 @@ const mapPatientData = (data: reqPatient) => {
     ],
     gender: data.gender
   }
+  return patient
 }
 
 export const createPatient = async (
-  req: CustomReq<reqPatient>,
+  req: CustomReq<ReqPatient>,
   res: Response
 ) => {
   const data = req.body
@@ -53,8 +56,7 @@ export const createPatient = async (
   const result = RTTI_Patient.decode(patient)
   try {
     if (E.isRight(result)) {
-      const patientModel = new Patient(patient)
-      await patientModel.save()
+      const patientModel = await dal.createPatient(patient)
       res
         .status(200)
         .send(jsonRes(patientModel, 'Patient created successfully'))
@@ -74,7 +76,7 @@ export const getPatientById = async (req: Request, res: Response) => {
   if (!id) {
     return res.status(400).send(jsonRes({}, 'Invalid ID'))
   }
-  const patient = await Patient.findById(id)
+  const patient = await dal.getPatientById(id)
   if (!patient) {
     return res.status(404).send(jsonRes({}, 'Patient not found'))
   }

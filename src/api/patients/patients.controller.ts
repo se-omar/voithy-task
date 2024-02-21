@@ -65,8 +65,7 @@ export const createPatient = async (req: Request, res: Response) => {
 
 export const getPatientById = async (req: Request, res: Response) => {
   const { id } = req.params
-	console.log("id: ", id);
-	
+
   if (!id) {
     return res.status(400).send(jsonRes({}, 'Invalid ID'))
   }

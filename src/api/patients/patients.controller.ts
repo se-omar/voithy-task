@@ -7,6 +7,7 @@ import {
 import { either as E } from 'fp-ts'
 import { jsonRes } from '../../utils/JsonRes'
 import { Patient } from '../../config/database'
+import { type CustomReq } from '../../utils/customReq'
 
 interface reqPatient {
   givenName: string
@@ -43,8 +44,12 @@ const mapPatientData = (data: reqPatient) => {
   }
 }
 
-export const createPatient = async (req: Request, res: Response) => {
-  const patient = mapPatientData(req.body as reqPatient)
+export const createPatient = async (
+  req: CustomReq<reqPatient>,
+  res: Response
+) => {
+  const data = req.body
+  const patient = mapPatientData(data)
   const result = RTTI_Patient.decode(patient)
   try {
     if (E.isRight(result)) {

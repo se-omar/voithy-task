@@ -4,7 +4,8 @@ import compression from 'compression'
 import cors from 'cors'
 import router from './router'
 import path from 'path'
-
+import swaggerUi from 'swagger-ui-express'
+import swaggerOutput from './swagger_output.json'
 const app = express()
 const port = 3000
 
@@ -33,7 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(router)
 
-app.get('/test', (req, res) => {
+app.get('/health', (req, res) => {
   res.send('Healthy Instance')
 })
 
@@ -53,6 +54,8 @@ app.get('/patient/:id', (req, res) => {
   req.url = req.params.id
   res.sendFile(path.join(__dirname, 'public', 'pages/patient.html'))
 })
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput))
 
 app.listen(port, () => {
   console.log(`Express is listening at http://localhost:${port}`)

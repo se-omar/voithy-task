@@ -5,7 +5,6 @@ A simple medical Patient resource adhering to the HL7 FHIR standards, implemente
 * Login/Signup with OAuth authentication/authorization JWT Tokens
 * API Auditing for each request coming to the server
 * Swagger Documentation
-* 
 
 ### Prerequisites
 
@@ -19,12 +18,4 @@ A simple medical Patient resource adhering to the HL7 FHIR standards, implemente
 2. setup and run the server
 ``cd voithy-task``
 ``npm i && npm start``
-
-2. setup and run the server
-``cd server``
-``go run src/main.go``
-
-3. setup and run the client
-``cd client``
-``npm i && npm run dev``
-
+3. navigate to localhost:3000 to view Swagger Docs

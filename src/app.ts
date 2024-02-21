@@ -55,7 +55,7 @@ app.get('/patient/:id', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'pages/patient.html'))
 })
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput))
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerOutput))
 
 app.listen(port, () => {
   console.log(`Express is listening at http://localhost:${port}`)
